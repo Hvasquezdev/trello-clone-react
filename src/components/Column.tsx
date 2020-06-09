@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { AddNewItem } from './AddNewItem';
 import { ColumnContainer, ColumnTitle } from '../styles';
 
 interface Props {
@@ -10,6 +11,11 @@ export const Column: FC<React.PropsWithChildren<Props>> = ({ text, children }) =
     <ColumnContainer>
       <ColumnTitle>{text}</ColumnTitle>
       {children}
+      <AddNewItem
+        toggleButtonText="+ Add another list"
+        onAdd={console.log}
+        dark
+      />
     </ColumnContainer>
   );
 };
