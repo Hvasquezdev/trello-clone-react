@@ -3,19 +3,18 @@ import { AppContainer } from './styles';
 import { Card } from './components/Card';
 import { Column } from './components/Column';
 import { AddNewItem } from './components/AddNewItem';
+import { useAppState } from './AppStateContext';
 
 function App() {
+  const { state } = useAppState();
+
   return (
     <AppContainer>
-      <Column text="To Do">
-        <Card text="Generate app scaffold" />
-      </Column>
-      <Column text="In Progress">
-        <Card text="Learn typescript" />
-      </Column>
-      <Column text="Done">
-        <Card text="Begin to use static typing" />
-      </Column>
+      {state.lists.map((list, i) => (
+        <Column text={list.text} key={list.id}>
+          {list.tasks.map((task) => <Card text={task.text} key={task.id} />)}
+        </Column>
+      ))}
       <AddNewItem
         toggleButtonText="+ Add another list"
         onAdd={console.log}
