@@ -1,23 +1,28 @@
 import React from 'react';
 import { AppContainer } from './styles';
-import { Card } from './components/Card';
 import { Column } from './components/Column';
 import { AddNewItem } from './components/AddNewItem';
 import { useAppState } from './AppStateContext';
 
 function App() {
-  const { state } = useAppState();
+  const { state, dispatch } = useAppState();
 
   return (
     <AppContainer>
       {state.lists.map((list, i) => (
-        <Column text={list.text} key={list.id}>
-          {list.tasks.map((task) => <Card text={task.text} key={task.id} />)}
-        </Column>
+        <Column
+          text={list.text}
+          index={i}
+          key={list.id}
+          id={list.id}
+        />
       ))}
       <AddNewItem
         toggleButtonText="+ Add another list"
-        onAdd={console.log}
+        onAdd={text => dispatch({
+          type: 'ADD_LIST',
+          payload: text
+        })}
       />
     </AppContainer>
   );
